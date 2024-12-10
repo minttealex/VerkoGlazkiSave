@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -88,5 +89,19 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Name="TBCount" FontSize="12" Height="12"></TextBlock>
+            <TextBlock Name="TBAllRecords" FontSize="12" Height="12"></TextBlock>
+            <Button Name="LeftDirButton" Content="&lt;" FontSize="12" Width="12" Height="12" Background="Transparent" BorderBrush="Transparent" Padding="0" Click="LeftDirButton_Click"></Button>
+            <ListBox FontSize="12" Name="PageListBox" MouseUp="PageListBox_MouseUp" BorderBrush="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" FontSize="12" Width="12" Height="12" Background="Transparent" BorderBrush="Transparent" Padding="0" Click="RightDirButton_Click"></Button>
+        </StackPanel>
     </Grid>
 </Page>
