@@ -33,7 +33,9 @@ namespace VerkoGlazkiSave
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
-    
+
+        // public string AgentTypeT => AgentType.Title;
+
         public virtual AgentType AgentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentPriorityHistory> AgentPriorityHistory { get; set; }

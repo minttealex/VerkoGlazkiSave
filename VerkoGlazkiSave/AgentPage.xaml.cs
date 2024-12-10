@@ -40,8 +40,24 @@ namespace VerkoGlazkiSave
         {
             var currentAgents = ВеркоГлазкиSaveEntities.GetContext().Agent.ToList();
 
-            currentAgents = currentAgents.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower()) || p.Phone.Contains(TBoxSearch.Text)).ToList();
-            
+            string cleanedSearchText = TBoxSearch.Text.Replace("(", "")
+                                           .Replace(")", "")
+                                           .Replace("-", "")
+                                           .Replace(" ", "")
+                                           .Replace(".", "")
+                                           .Replace("+", "");
+
+            currentAgents = currentAgents.Where(p =>
+                p.Title.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
+                p.Email.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
+                p.Phone.Replace("(", "")
+                        .Replace(")", "")
+                        .Replace("-", "")
+                        .Replace(" ", "")
+                        .Replace(".", "")
+                        .Replace("+", "").Contains(cleanedSearchText)
+            ).ToList();
+
             if (ComboSorting.SelectedIndex == 1)
             {
                 currentAgents = currentAgents.OrderBy(p => p.Title).ToList();

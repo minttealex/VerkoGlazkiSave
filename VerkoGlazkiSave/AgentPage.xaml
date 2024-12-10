@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VerkoGlazkiSave"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="700"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="AgentPage" FontFamily="Century Gothic">
 
     <Grid>
@@ -21,12 +21,12 @@
 
         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel Margin="10" Orientation="Horizontal">
-                <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="330" FontSize="12" Height="24"></TextBox>
+                <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="380" FontSize="12" Height="24"></TextBox>
             </StackPanel>
         </WrapPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="5">
-            <ComboBox Name="ComboSorting" FontSize="12" Width="180" SelectionChanged="ComboSorting_SelectionChanged" Height="24">
+            <ComboBox Name="ComboSorting" FontSize="12" Width="200" SelectionChanged="ComboSorting_SelectionChanged" Height="24">
                 <TextBlock>Сортировка</TextBlock>
                 <TextBlock>Наименование ↑</TextBlock>
                 <TextBlock>Наименование ↓</TextBlock>
@@ -38,7 +38,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="5">
-            <ComboBox Name="ComboFilter" FontSize="12" Width="130" SelectionChanged="ComboFilter_SelectionChanged" Height="24">
+            <ComboBox Name="ComboFilter" FontSize="12" Width="160" SelectionChanged="ComboFilter_SelectionChanged" Height="24">
                 <ComboBoxItem Content="Все типы"/>
                 <ComboBoxItem Content="МФО"/>
                 <ComboBoxItem Content="ООО"/>
@@ -56,7 +56,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="55"/>
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="350"/>
                             <ColumnDefinition Width="210"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
