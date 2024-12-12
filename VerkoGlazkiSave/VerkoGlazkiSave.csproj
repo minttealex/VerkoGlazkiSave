@@ -300,6 +300,22 @@
     <Resource Include="agents\agent_99.png" />
     <Resource Include="agents\agent_105.png" />
     <Resource Include="agents\agent_28.png" />
+    <Resource Include="agents\agent_91.png" />
+    <Resource Include="agents\agent_77.png" />
+    <Resource Include="agents\agent_84.png" />
+    <Resource Include="agents\agent_98.png" />
+    <Resource Include="agents\agent_112.png" />
+    <Resource Include="agents\agent_119.png" />
+    <Resource Include="agents\agent_126.png" />
+    <Resource Include="agents\agent_14.png" />
+    <Resource Include="agents\agent_21.png" />
+    <Resource Include="agents\agent_35.png" />
+    <Resource Include="agents\agent_42.png" />
+    <Resource Include="agents\agent_49.png" />
+    <Resource Include="agents\agent_56.png" />
+    <Resource Include="agents\agent_63.png" />
+    <Resource Include="agents\agent_70.png" />
+    <Resource Include="agents\agent_7.png" />
     <Content Include="VerkoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VerkoModel.Context.cs</LastGenOutput>
