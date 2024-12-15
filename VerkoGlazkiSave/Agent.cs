@@ -11,7 +11,8 @@ namespace VerkoGlazkiSave
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Media;
+
     public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,6 +34,68 @@ namespace VerkoGlazkiSave
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
+
+        public decimal Prod
+        {
+            get
+            {
+                decimal p = 0;
+                if (ProductSale != null)
+                {
+                    foreach (ProductSale sales in ProductSale)
+                    {
+                        if (sales != null && sales.Product != null)
+                        {
+                            p += sales.Stoimost;
+                        }
+                    }
+                }
+                return p;
+            }
+        }
+
+        public decimal Discount
+        {
+            get
+            {
+                if (Prod < 10000)
+                {
+                    return 0;
+                }
+                else if (Prod < 50000)
+                {
+                    return 5;
+                }
+                else if (Prod < 150000)
+                {
+                    return 10;
+                }
+                else if (Prod < 500000)
+                {
+                    return 20;
+                }
+                else
+                {
+                    return 25;
+                }
+            }
+        }
+
+        public SolidColorBrush BgStyle
+        {
+            get
+            {
+                if (Discount >= 25)
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
+                }
+                else
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("White");
+                }
+            }
+        }
+
 
         // public string AgentTypeT => AgentType.Title;
 

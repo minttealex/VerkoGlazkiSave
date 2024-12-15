@@ -235,5 +235,24 @@ namespace VerkoGlazkiSave
         {
             Manager.MainFrame.Navigate(new AddEditPage(null));
         }
+
+        private void AgentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AgentListView.SelectedItems.Count > 1)
+            {
+                ChangePriorityButton.Visibility = Visibility.Visible;
+
+                var selectedAgents = AgentListView.SelectedItems.Cast<Agent>().ToList();
+                var maxPriority = selectedAgents.Max(agent => agent.Priority);
+            }
+
+            else
+                ChangePriorityButton.Visibility = Visibility.Hidden;
+        }
+
+        private void ChangePriorityButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
