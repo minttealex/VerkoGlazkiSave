@@ -226,11 +226,6 @@ namespace VerkoGlazkiSave
             Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void AddAgentButton_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new AddEditPage(null));
@@ -252,7 +247,40 @@ namespace VerkoGlazkiSave
 
         private void ChangePriorityButton_Click(object sender, RoutedEventArgs e)
         {
+            int maxPriority = 0;
+            foreach (Agent agent in AgentListView.SelectedItems)
+            {
+                if (agent.Priority > maxPriority)
+                {
+                    maxPriority = agent.Priority;
+                }
+            }
 
+            ChangePriorityWndw myWindow = new ChangePriorityWndw(maxPriority);
+            if (myWindow.ShowDialog() == true)
+            {
+                int newPriority = Convert.ToInt32(myWindow.TBPriority.Text);
+                foreach (Agent agent in AgentListView.SelectedItems)
+                {
+                    agent.Priority = newPriority;
+                }
+
+                try
+                {
+                    ВеркоГлазкиSaveEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Информация сохранена");
+                    UpdateAgents();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+
+        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new SalesHistoryPage((sender as Button).DataContext as Agent));
         }
     }
 }

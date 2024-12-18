@@ -58,7 +58,7 @@
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="55"/>
                             <ColumnDefinition Width="360"/>
-                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="205"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -86,7 +86,8 @@
                         <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="12"></TextBlock>
                         <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" FontSize="12"></TextBlock>
 
-                        <Button Name="EditButton" Content="Редактировать" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Click="EditButton_Click" HorizontalAlignment="Right" Margin="2"></Button>
+                        <Button Name="EditButton" Content="Редактировать" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Click="EditButton_Click" HorizontalAlignment="Right" Margin="2"></Button>
+                        <Button Name="HistoryButton" Content="История реализации" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Click="HistoryButton_Click" HorizontalAlignment="Center" Width="195" Margin="2"></Button>
                         <!--<Button Name="DeleteButton" Content="Удалить" Grid.Row="4" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Right" Margin="2"></Button>-->
                     </Grid>
                 </DataTemplate>
