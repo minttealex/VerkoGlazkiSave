@@ -21,6 +21,7 @@ namespace VerkoGlazkiSave
     public partial class SalesHistoryPage : Page
     {
         private Agent _currentAgent = new Agent();
+        private List<Product> _allProducts;
 
         public SalesHistoryPage(Agent selectedAgent)
         {
@@ -31,7 +32,6 @@ namespace VerkoGlazkiSave
                 _currentAgent = selectedAgent;
             }
 
-
             DataContext = _currentAgent;
             LoadSalesHistory();
             LoadProducts();
@@ -41,50 +41,52 @@ namespace VerkoGlazkiSave
         {
             var currentSales = ВеркоГлазкиSaveEntities.GetContext()
                 .ProductSale
-                .Where(s => s.AgentID == _currentAgent.ID) 
-                .Select(s => new
-                {
-                    ProductName = s.Product.Title,
-                    Quantity = s.ProductCount,   
-                    SaleDate = s.SaleDate     
-                })
+                .Where(s => s.AgentID == _currentAgent.ID)
                 .ToList();
 
             SalesListView.ItemsSource = currentSales.Select(s => new
             {
-                s.ProductName,
-                s.Quantity,
+                ProductSale = s,
+                ProductName = s.Product.Title,
+                Quantity = s.ProductCount,
                 SaleDateFormatted = s.SaleDate.ToString("dd.MM.yyyy")
             }).ToList();
         }
 
-
         private void LoadProducts()
         {
-            var products = ВеркоГлазкиSaveEntities.GetContext().Product.ToList();
-            ProductComboBox.ItemsSource = products;
+            _allProducts = ВеркоГлазкиSaveEntities.GetContext().Product.ToList();
+            ProductComboBox.ItemsSource = _allProducts;
         }
 
         private void AddSaleButton_Click(object sender, RoutedEventArgs e)
         {
-            // Check if a product is selected
             if (ProductComboBox.SelectedItem is Product selectedProduct)
             {
                 if (int.TryParse(QuantityTextBox.Text, out int quantity) && quantity > 0)
                 {
-                    var newSale = new ProductSale
+                    if (SaleDatePicker.SelectedDate.HasValue)
                     {
-                        ProductID = selectedProduct.ID,
-                        AgentID = _currentAgent.ID,
-                        SaleDate = DateTime.Now,
-                        ProductCount = quantity
-                    };
+                        var saleDate = SaleDatePicker.SelectedDate.Value;
 
-                    ВеркоГлазкиSaveEntities.GetContext().ProductSale.Add(newSale);
-                    ВеркоГлазкиSaveEntities.GetContext().SaveChanges();
+                        var newSale = new ProductSale
+                        {
+                            ProductID = selectedProduct.ID,
+                            AgentID = _currentAgent.ID,
+                            SaleDate = saleDate,
+                            ProductCount = quantity
+                        };
 
-                    LoadSalesHistory();
-                    MessageBox.Show("Продажа добавлена.");
+                        ВеркоГлазкиSaveEntities.GetContext().ProductSale.Add(newSale);
+                        ВеркоГлазкиSaveEntities.GetContext().SaveChanges();
+
+                        LoadSalesHistory();
+                        MessageBox.Show("Продажа добавлена.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пожалуйста, выберите дату продажи.");
+                    }
                 }
                 else
                 {
@@ -100,12 +102,56 @@ namespace VerkoGlazkiSave
 
         private void DeleteSaleButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (SalesListView.SelectedItem is var selectedSale && selectedSale != null)
+            {
+                var saleToDelete = (selectedSale as dynamic).ProductSale;
+
+                if (saleToDelete != null)
+                {
+                    ВеркоГлазкиSaveEntities.GetContext().ProductSale.Remove(saleToDelete);
+                    ВеркоГлазкиSaveEntities.GetContext().SaveChanges();
+
+                    LoadSalesHistory();
+                    MessageBox.Show("Продажа удалена.");
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось найти продажу для удаления.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите продажу для удаления.");
+            }
         }
+
 
         private void QuantityTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+
+        private void EditTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = (sender as TextBox).Text.ToLower();
+            var filteredProducts = _allProducts.Where(p => p.Title.ToLower().Contains(searchText)).ToList();
+            ProductComboBox.ItemsSource = filteredProducts;
+
+            if (filteredProducts.Count > 0)
+            {
+                ProductComboBox.IsDropDownOpen = true;
+            }
+        }
+
+        private void ProductComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBox editTextBox = ProductComboBox.Template.FindName("PART_EditableTextBox", ProductComboBox) as TextBox;
+
+            if (editTextBox != null)
+            {
+                editTextBox.TextChanged += EditTextBox_TextChanged;
+            }
+        }
     }
+
 }

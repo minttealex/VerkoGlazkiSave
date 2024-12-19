@@ -21,7 +21,13 @@ namespace VerkoGlazkiSave
             this.ProductMaterial = new HashSet<ProductMaterial>();
             this.ProductSale = new HashSet<ProductSale>();
         }
-    
+
+        public override string ToString()
+        {
+            return Title;
+        }
+
+
         public int ID { get; set; }
         public string Title { get; set; }
         public Nullable<int> ProductTypeID { get; set; }
