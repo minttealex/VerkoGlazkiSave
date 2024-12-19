@@ -97,6 +97,8 @@ namespace VerkoGlazkiSave
             {
                 MessageBox.Show("Пожалуйста, выберите продукт для продажи.");
             }
+
+            LoadProducts();
         }
 
 
@@ -123,6 +125,8 @@ namespace VerkoGlazkiSave
             {
                 MessageBox.Show("Пожалуйста, выберите продажу для удаления.");
             }
+
+            LoadProducts();
         }
 
 
